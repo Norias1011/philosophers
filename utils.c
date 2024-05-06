@@ -6,7 +6,7 @@
 /*   By: akinzeli <akinzeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:06:09 by akinzeli          #+#    #+#             */
-/*   Updated: 2024/05/02 14:45:18 by akinzeli         ###   ########.fr       */
+/*   Updated: 2024/05/06 16:02:32 by akinzeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,23 @@ int	ft_atoi(const char *str)
 		i++;
 	}
 	return (number * parity);
+}
+int	check_av(int ac, char *av[])
+{
+	int	i;
+	int	j;
+
+	i = 1;
+	while (i < ac)
+	{
+		j = 0;
+		while (av[i][j])
+		{
+			if (!(ft_isdigit(av[i][j])))
+				return (0);
+			j++;
+		}
+		i++;
+	}
+	return (1);
 }
