@@ -6,7 +6,7 @@
 /*   By: akinzeli <akinzeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:05:53 by akinzeli          #+#    #+#             */
-/*   Updated: 2024/05/06 16:03:42 by akinzeli         ###   ########.fr       */
+/*   Updated: 2024/05/08 16:35:49 by akinzeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ t_init_data	*start_data(int ac, char *av[])
 		if (ac == 6)
 			new->must_eat = ft_atoi(av[5]);
 		else
-			new->must_eat = INT_MAX;
+			new->must_eat = -1;
 	}
 	else
 		free(new);
 	if (new->number_philo <= 0 || new->time_die <= 0 || new->time_eat <= 0
-		|| new->time_sleep <= 0 || new->must_eat <= 0)
+		|| new->time_sleep <= 0 || new->must_eat == 0)
 		return (NULL);
 	return (new);
 }
@@ -70,7 +70,7 @@ t_philo	*init_philo(t_init_data *data, t_fork *fork)
 		return (NULL);
 	i = -1;
 	while (++i < data->number_philo)
-		data_philo((philo + i), data, fork, i);
+		data_philo(&philo[i], data, fork, i);
 	return (philo);
 }
 
@@ -78,4 +78,11 @@ int	data_philo(t_philo *philo, t_init_data *data, t_fork *fork, int i)
 {
 	philo->left = (fork + i);
 	philo->right = (fork + ((i + 1) % data->number_philo));
+	philo->meal_eaten = 0;
+	philo->dinner_start = time_get();
+	philo->last_eaten_meal = time_get();
+	pthread_mutex_init(&(philo + i)->print, NULL);
+	pthread_mutex_init(&(philo + i)->dinner, NULL);
+	pthread_mutex_init(&(philo + i)->dead, NULL);
+	philo->end_dinner = false;
 }

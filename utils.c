@@ -6,7 +6,7 @@
 /*   By: akinzeli <akinzeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:06:09 by akinzeli          #+#    #+#             */
-/*   Updated: 2024/05/06 16:02:32 by akinzeli         ###   ########.fr       */
+/*   Updated: 2024/05/08 15:01:57 by akinzeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,12 @@ int	check_av(int ac, char *av[])
 		i++;
 	}
 	return (1);
+}
+size_t	time_get(void)
+{
+	struct timeval	time;
+
+	if (gettimeofday(&time, NULL) == -1)
+		printf("gettimeofday error\n");
+	return ((time.tv_sec * 1000000 + time.tv_usec));
 }
