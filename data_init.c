@@ -6,7 +6,7 @@
 /*   By: akinzeli <akinzeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:05:53 by akinzeli          #+#    #+#             */
-/*   Updated: 2024/05/08 16:35:49 by akinzeli         ###   ########.fr       */
+/*   Updated: 2024/05/13 12:10:56 by akinzeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ t_init_data	*start_data(int ac, char *av[])
 	if (ac > 4 && check_av(ac, av))
 	{
 		new->number_philo = ft_atoi(av[1]);
-		new->time_die = ft_atoi(av[2]) * 1000;
-		new->time_eat = ft_atoi(av[3]) * 1000;
-		new->time_sleep = ft_atoi(av[4]) * 1000;
+		new->time_die = ft_atoi(av[2]);
+		new->time_eat = ft_atoi(av[3]);
+		new->time_sleep = ft_atoi(av[4]);
 		if (ac == 6)
 			new->must_eat = ft_atoi(av[5]);
 		else
@@ -71,6 +71,9 @@ t_philo	*init_philo(t_init_data *data, t_fork *fork)
 	i = -1;
 	while (++i < data->number_philo)
 		data_philo(&philo[i], data, fork, i);
+	pthread_mutex_init(&(philo)->print, NULL);
+	pthread_mutex_init(&(philo)->dinner, NULL);
+	pthread_mutex_init(&(philo)->dead, NULL);
 	return (philo);
 }
 
@@ -81,8 +84,7 @@ int	data_philo(t_philo *philo, t_init_data *data, t_fork *fork, int i)
 	philo->meal_eaten = 0;
 	philo->dinner_start = time_get();
 	philo->last_eaten_meal = time_get();
-	pthread_mutex_init(&(philo + i)->print, NULL);
-	pthread_mutex_init(&(philo + i)->dinner, NULL);
-	pthread_mutex_init(&(philo + i)->dead, NULL);
 	philo->end_dinner = false;
+	philo->philo_number = i;
+	philo->philo_dead = 0;
 }
