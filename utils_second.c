@@ -6,15 +6,15 @@
 /*   By: akinzeli <akinzeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:08:39 by akinzeli          #+#    #+#             */
-/*   Updated: 2024/05/13 11:14:52 by akinzeli         ###   ########.fr       */
+/*   Updated: 2024/05/14 16:49:35 by akinzeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	ft_usleep(long int micro_sec)
+void	ft_usleep(unsigned int micro_sec)
 {
-	long int start_time;
+	int start_time;
 
 	start_time = 0;
 	start_time = time_get();

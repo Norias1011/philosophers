@@ -6,7 +6,7 @@
 /*   By: akinzeli <akinzeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 13:57:54 by akinzeli          #+#    #+#             */
-/*   Updated: 2024/05/13 14:34:03 by akinzeli         ###   ########.fr       */
+/*   Updated: 2024/05/14 16:50:00 by akinzeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,12 @@ typedef struct s_data
 	pthread_t		syncronizor;
 }					t_init_data;
 
+typedef struct s_fork
+{
+	pthread_mutex_t	mutex;
+	int				fork_used;
+}					t_fork;
+
 typedef struct s_philo
 {
 	t_init_data		*data;
@@ -59,18 +65,12 @@ typedef struct s_philo
 	pthread_mutex_t	dead;
 }					t_philo;
 
-typedef struct s_fork
-{
-	pthread_mutex_t	mutex;
-	int				fork_used;
-}					t_fork;
-
 /* data_init.c functions */
 
 t_init_data			*start_data(int ac, char *av[]);
 t_fork				*init_fork(t_init_data *data);
 t_philo				*init_philo(t_init_data *data, t_fork *fork);
-int					data_philo(t_philo *philo, t_init_data *data, t_fork *fork,
+void				data_philo(t_philo *philo, t_init_data *data, t_fork *fork,
 						int i);
 
 /* utils.c functions */
@@ -84,7 +84,7 @@ void				print_situation(t_philo *philo, int philo_number,
 
 /* utils_second.c functions */
 
-void				ft_usleep(long int micro_sec);
+void				ft_usleep(unsigned int micro_sec);
 
 /* main.c functions */
 
@@ -92,6 +92,7 @@ int					free_all(t_philo *philo, t_fork *fork, t_init_data *data);
 
 /* dinner.c functions */
 
-int					dinner(t_philo *philo, t_fork *fork, t_init_data *data);
+int					dinner(t_philo *philo, t_init_data *data);
+int					*test_print(void *show_data);
 
 #endif

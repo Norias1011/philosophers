@@ -6,7 +6,7 @@
 /*   By: akinzeli <akinzeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:05:53 by akinzeli          #+#    #+#             */
-/*   Updated: 2024/05/14 16:06:30 by akinzeli         ###   ########.fr       */
+/*   Updated: 2024/05/14 17:10:31 by akinzeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_init_data	*start_data(int ac, char *av[])
 	new = malloc(sizeof(t_init_data));
 	if (new == NULL)
 		return (NULL);
-	if (ac > 4 && check_av(ac, av))
+	if ((ac > 4 && ac <= 6) && check_av(ac, av))
 	{
 		new->number_philo = ft_atoi(av[1]);
 		new->time_die = ft_atoi(av[2]);
@@ -28,12 +28,12 @@ t_init_data	*start_data(int ac, char *av[])
 		if (ac == 6)
 			new->must_eat = ft_atoi(av[5]);
 		else
-			new->must_eat = -1;
+			new->must_eat = INT_MAX;
 	}
 	else
 		free(new);
 	if (new->number_philo <= 0 || new->time_die <= 0 || new->time_eat <= 0
-		|| new->time_sleep <= 0 || new->must_eat == 0)
+		|| new->time_sleep <= 0 || new->must_eat <= 0)
 		return (NULL);
 	return (new);
 }
@@ -77,7 +77,7 @@ t_philo	*init_philo(t_init_data *data, t_fork *fork)
 	return (philo);
 }
 
-int	data_philo(t_philo *philo, t_init_data *data, t_fork *fork, int i)
+void	data_philo(t_philo *philo, t_init_data *data, t_fork *fork, int i)
 {
 	philo->left = (fork + i);
 	philo->right = (fork + ((i + 1) % data->number_philo));

@@ -6,7 +6,7 @@
 /*   By: akinzeli <akinzeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 13:57:00 by akinzeli          #+#    #+#             */
-/*   Updated: 2024/05/14 12:46:38 by akinzeli         ###   ########.fr       */
+/*   Updated: 2024/05/14 17:14:27 by akinzeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ int	main(int ac, char *av[])
 		free_all(philos, fork, data);
 		return (printf(ERROR_MSG));
 	}
-	if (!(dinner(&philos, &fork, &data)))
+	printf("all good before dining function\n");
+	if (!(dinner(philos, data)))
 	{
 		free_all(philos, fork, data);
 		return (printf("Someone died\n"));
