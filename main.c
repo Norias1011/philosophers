@@ -6,7 +6,7 @@
 /*   By: akinzeli <akinzeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 13:57:00 by akinzeli          #+#    #+#             */
-/*   Updated: 2024/05/14 12:42:18 by akinzeli         ###   ########.fr       */
+/*   Updated: 2024/05/14 12:46:38 by akinzeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	main(int ac, char *av[])
 		free_all(philos, fork, data);
 		return (printf("Someone died\n"));
 	}
-	free_all(philos, fork, data);
+	free_all(philos, fork, data); /*
+		+ a function to destroy or detach the thread*/
 	return (0);
 }
