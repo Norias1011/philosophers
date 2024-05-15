@@ -6,7 +6,7 @@
 /*   By: akinzeli <akinzeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 13:57:54 by akinzeli          #+#    #+#             */
-/*   Updated: 2024/05/14 16:50:00 by akinzeli         ###   ########.fr       */
+/*   Updated: 2024/05/15 15:38:33 by akinzeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct s_data
 	long			time_eat;
 	long			time_sleep;
 	long			must_eat;
-	pthread_t		syncronizor;
+	pthread_t		death_checker;
 }					t_init_data;
 
 typedef struct s_fork
@@ -84,15 +84,25 @@ void				print_situation(t_philo *philo, int philo_number,
 
 /* utils_second.c functions */
 
-void				ft_usleep(unsigned int micro_sec);
+int					ft_usleep(unsigned int micro_sec);
 
 /* main.c functions */
 
 int					free_all(t_philo *philo, t_fork *fork, t_init_data *data);
+void				ft_finish(t_philo *philo, t_fork *fork, t_init_data *data);
 
 /* dinner.c functions */
 
 int					dinner(t_philo *philo, t_init_data *data);
-int					*test_print(void *show_data);
+void				*check_death(void *philo);
+int					death_checker(t_philo *philo, size_t time);
+void				*routine(void *philo);
+// int					*test_print(void *show_data);
+
+/* philo_action.c functions */
+
+void				eat(t_philo *philo);
+void				sleep(t_philo *philo);
+void				think(t_philo *philo);
 
 #endif
