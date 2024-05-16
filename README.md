@@ -21,11 +21,11 @@ This will generate an executable named `philosopher`.
 
 To run the program, execute the following command:
 ```bash
-./philosopher [number_of_philosophers] [time_to_die] [time_to_eat] [time_to_sleep] [number_of_times_each_philosopher_must_eat]
+./philo [number_of_philosophers] [time_to_die] [time_to_eat] [time_to_sleep] [number_of_times_each_philosopher_must_eat]
 ```
 Replace the placeholders with appropriate values for your simulation. For example:
 ```bash
-./philosopher 5 800 200 200 7
+./philo 5 800 200 200 7
 ```
 This command will simulate 5 philosophers, with a time to die of 800 milliseconds, time to eat of 200 milliseconds, time to sleep of 200 milliseconds, and each philosopher must eat 7 times before the simulation ends.
 
