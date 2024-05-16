@@ -6,7 +6,7 @@
 /*   By: akinzeli <akinzeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:05:53 by akinzeli          #+#    #+#             */
-/*   Updated: 2024/05/15 12:15:30 by akinzeli         ###   ########.fr       */
+/*   Updated: 2024/05/16 14:41:46 by akinzeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,12 @@ t_philo	*init_philo(t_init_data *data, t_fork *fork)
 	philo = malloc(sizeof(t_philo) * data->number_philo);
 	if (philo == NULL)
 		return (NULL);
-	i = -1;
-	while (++i < data->number_philo)
-		data_philo(&philo[i], data, fork, i);
 	pthread_mutex_init(&(philo)->print, NULL);
 	pthread_mutex_init(&(philo)->dinner, NULL);
 	pthread_mutex_init(&(philo)->dead, NULL);
+	i = -1;
+	while (++i < data->number_philo)
+		data_philo(&philo[i], data, fork, i);
 	return (philo);
 }
 

@@ -6,7 +6,7 @@
 /*   By: akinzeli <akinzeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:06:09 by akinzeli          #+#    #+#             */
-/*   Updated: 2024/05/14 17:17:44 by akinzeli         ###   ########.fr       */
+/*   Updated: 2024/05/16 14:42:38 by akinzeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,12 +81,15 @@ size_t	time_get(void)
 
 void	print_situation(t_philo *philo, int philo_number, char *message)
 {
+	size_t	time;
+
 	pthread_mutex_lock(&(philo->print));
 	if (!(philo->philo_dead))
 	{
-		printf("%ld ", time_get() - philo->dinner_start);
-		printf("%d ", philo_number + 1);
-		printf("%s\n", message);
+		time = time_get() - philo->dinner_start;
+		printf("%ld %d %s\n", time, philo_number, message);
+		// printf("%d ", philo_number + 1);
+		// printf("%s\n", message);
 	}
 	pthread_mutex_unlock(&(philo->print));
 	return ;

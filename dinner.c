@@ -6,7 +6,7 @@
 /*   By: akinzeli <akinzeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:17:18 by akinzeli          #+#    #+#             */
-/*   Updated: 2024/05/15 15:30:35 by akinzeli         ###   ########.fr       */
+/*   Updated: 2024/05/16 14:37:38 by akinzeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,23 +43,27 @@ void	*check_death(void *philo)
 	{
 		i = 0;
 		time = time_get() - philo_pointer->dinner_start;
-		while (time < philo_pointer->data->number_philo)
+		while (i < philo_pointer->data->number_philo)
 		{
 			if (death_checker(&philo_pointer[i], time))
 				return (NULL);
+			i++;
 		}
+		ft_usleep(5);
 	}
 }
 
 int	death_checker(t_philo *philo, size_t time)
 {
-	int	i;
+	int	last_real_meal;
 
-	if (philo->last_eaten_meal > philo->data->time_die)
+	last_real_meal = time - philo->last_eaten_meal;
+	if (last_real_meal > philo->data->time_die)
 	{
 		pthread_mutex_lock(&(philo->print));
 		pthread_mutex_lock(&(philo->dead));
 		philo->philo_dead = 1;
+		philo->end_dinner = true;
 		pthread_mutex_unlock(&(philo->dead));
 		print_situation(philo, philo->philo_number, DIE);
 		pthread_mutex_unlock(&(philo->print));
@@ -74,15 +78,33 @@ void	*routine(void *philo)
 	philo_pointer = (t_philo *)philo;
 	if (philo_pointer->philo_number % 2 != 0)
 		ft_usleep(philo_pointer->data->time_eat);
-	while (philo_pointer->data->must_eat > 0 && !philo_pointer->philo_dead)
+	while (philo_pointer->data->must_eat > 0 && !philo_pointer->philo_dead
+		&& !philo_pointer->end_dinner)
 	{
 		think(philo_pointer);
 		eat(philo_pointer);
-		if (philo_pointer->data->must_eat == 0 || philo_pointer->philo_dead)
+		if (philo_pointer->data->must_eat == 0 || philo_pointer->philo_dead
+			|| philo_pointer->end_dinner)
 			break ;
-		sleep(philo_pointer);
+		sleep_philo(philo_pointer);
 	}
 	return (NULL);
+}
+
+int	join_thread(t_philo *philo, t_init_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->number_philo)
+	{
+		if (pthread_join(philo[i].id_thread, NULL) != 0)
+			return (0);
+		i++;
+	}
+	if (pthread_join(data->death_checker, NULL) != 0)
+		return (0);
+	return (1);
 }
 
 /*int	*test_print(void *show_data)

@@ -6,7 +6,7 @@
 /*   By: akinzeli <akinzeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 13:57:00 by akinzeli          #+#    #+#             */
-/*   Updated: 2024/05/15 15:26:33 by akinzeli         ###   ########.fr       */
+/*   Updated: 2024/05/16 14:53:22 by akinzeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,11 @@ int	main(int ac, char *av[])
 	{
 		ft_finish(philos, fork, data);
 		return (printf("Someone died\n"));
+	}
+	if (!(join_thread(philos, data)))
+	{
+		ft_finish(philos, fork, data);
+		return (printf("Error with Pthread join\n"));
 	}
 	ft_finish(philos, fork, data);
 	return (0);

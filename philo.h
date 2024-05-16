@@ -6,7 +6,7 @@
 /*   By: akinzeli <akinzeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 13:57:54 by akinzeli          #+#    #+#             */
-/*   Updated: 2024/05/15 15:38:33 by akinzeli         ###   ########.fr       */
+/*   Updated: 2024/05/16 14:03:04 by akinzeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void				print_situation(t_philo *philo, int philo_number,
 
 /* utils_second.c functions */
 
-int					ft_usleep(unsigned int micro_sec);
+int					ft_usleep(size_t micro_sec);
 
 /* main.c functions */
 
@@ -97,12 +97,13 @@ int					dinner(t_philo *philo, t_init_data *data);
 void				*check_death(void *philo);
 int					death_checker(t_philo *philo, size_t time);
 void				*routine(void *philo);
+int					join_thread(t_philo *philo, t_init_data *data);
 // int					*test_print(void *show_data);
 
 /* philo_action.c functions */
 
 void				eat(t_philo *philo);
-void				sleep(t_philo *philo);
+void				sleep_philo(t_philo *philo);
 void				think(t_philo *philo);
 
 #endif

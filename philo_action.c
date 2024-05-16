@@ -6,7 +6,7 @@
 /*   By: akinzeli <akinzeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 15:12:27 by akinzeli          #+#    #+#             */
-/*   Updated: 2024/05/15 15:39:04 by akinzeli         ###   ########.fr       */
+/*   Updated: 2024/05/16 14:58:17 by akinzeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	eat(t_philo *philo)
 	philo->right->fork_used = false;
 }
 
-void	sleep(t_philo *philo)
+void	sleep_philo(t_philo *philo)
 {
 	print_situation(philo, philo->philo_number, SLEEP);
 	ft_usleep(philo->data->time_sleep);
@@ -40,6 +40,7 @@ void	sleep(t_philo *philo)
 void	think(t_philo *philo)
 {
 	print_situation(philo, philo->philo_number, THINK);
+	ft_usleep(500);
 }
 
 /*void	fork(t_philo *philo, t_fork *fork)
