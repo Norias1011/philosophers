@@ -6,7 +6,7 @@
 /*   By: akinzeli <akinzeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:17:18 by akinzeli          #+#    #+#             */
-/*   Updated: 2024/05/18 17:39:50 by akinzeli         ###   ########.fr       */
+/*   Updated: 2024/05/18 18:32:53 by akinzeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,15 @@ int	dinner(t_philo *philo, t_init_data *data)
 	i = 0;
 	while (i < data->number_philo)
 	{
-		if (pthread_create(&philo->id_thread, NULL, (void *)routine,
-				&philo[i]) != 0)
+		if (pthread_create(&((philo + i)->id_thread), NULL, routine,
+				&(philo[i])) != 0)
 		{
 			printf("Error with Pthread\n");
 			return (0);
 		}
 		i++;
 	}
-	if (pthread_create(&data->death_checker, NULL, (void *)check_death, philo))
+	if (pthread_create(&(data->death_checker), NULL, check_death, philo))
 		return (0);
 	return (1);
 }
@@ -79,7 +79,7 @@ void	*routine(void *philo)
 	t_philo	*philo_pointer;
 
 	philo_pointer = (t_philo *)philo;
-	if (philo_pointer->philo_number % 2 != 0)
+	if (philo_pointer->philo_number % 2 == 0)
 		ft_usleep(philo_pointer->data->time_eat);
 	while ((philo_pointer->data->must_eat > 0
 			&& philo_pointer->meal_eaten <= philo_pointer->data->must_eat)
