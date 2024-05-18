@@ -6,7 +6,7 @@
 /*   By: akinzeli <akinzeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:17:18 by akinzeli          #+#    #+#             */
-/*   Updated: 2024/05/18 17:24:50 by akinzeli         ###   ########.fr       */
+/*   Updated: 2024/05/18 17:39:50 by akinzeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,9 @@ void	*routine(void *philo)
 	philo_pointer = (t_philo *)philo;
 	if (philo_pointer->philo_number % 2 != 0)
 		ft_usleep(philo_pointer->data->time_eat);
-	while (philo_pointer->data->must_eat > 0 || !philo_pointer->philo_dead
-		|| !philo_pointer->end_dinner)
+	while ((philo_pointer->data->must_eat > 0
+			&& philo_pointer->meal_eaten <= philo_pointer->data->must_eat)
+		|| philo_pointer->philo_dead == 0 || philo_pointer->end_dinner == false)
 	{
 		think(philo_pointer);
 		eat(philo_pointer);

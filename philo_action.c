@@ -6,7 +6,7 @@
 /*   By: akinzeli <akinzeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 15:12:27 by akinzeli          #+#    #+#             */
-/*   Updated: 2024/05/18 17:24:53 by akinzeli         ###   ########.fr       */
+/*   Updated: 2024/05/18 17:44:41 by akinzeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	eat(t_philo *philo)
 	pthread_mutex_lock(&philo->right->mutex);
 	print_situation(philo, philo->philo_number, FORK);
 	philo->right->fork_used = true;
-	philo->last_eaten_meal = time_get();
+	philo->last_eaten_meal = time_get() - philo->dinner_start;
 	philo->meal_eaten++;
 	philo->data->must_eat--;
 	print_situation(philo, philo->philo_number, EAT);
