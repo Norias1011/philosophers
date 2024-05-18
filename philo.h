@@ -6,7 +6,7 @@
 /*   By: akinzeli <akinzeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 13:57:54 by akinzeli          #+#    #+#             */
-/*   Updated: 2024/05/16 14:03:04 by akinzeli         ###   ########.fr       */
+/*   Updated: 2024/05/18 17:18:36 by akinzeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_philo
 {
 	t_init_data		*data;
 	int				philo_number;
+	int				philo_size;
 	int				meal_eaten;
 	int				philo_dead;
 	int				last_eaten_meal;
@@ -63,6 +64,7 @@ typedef struct s_philo
 	pthread_mutex_t	print;
 	pthread_mutex_t	dinner;
 	pthread_mutex_t	dead;
+	pthread_mutex_t	m_philo;
 }					t_philo;
 
 /* data_init.c functions */

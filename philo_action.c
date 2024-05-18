@@ -6,7 +6,7 @@
 /*   By: akinzeli <akinzeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 15:12:27 by akinzeli          #+#    #+#             */
-/*   Updated: 2024/05/16 14:58:17 by akinzeli         ###   ########.fr       */
+/*   Updated: 2024/05/18 17:24:53 by akinzeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	eat(t_philo *philo)
 {
+	pthread_mutex_lock(&philo->m_philo);
 	pthread_mutex_lock(&philo->left->mutex);
 	print_situation(philo, philo->philo_number, FORK);
 	philo->left->fork_used = true;
@@ -29,6 +30,7 @@ void	eat(t_philo *philo)
 	philo->left->fork_used = false;
 	pthread_mutex_unlock(&philo->right->mutex);
 	philo->right->fork_used = false;
+	pthread_mutex_unlock(&philo->m_philo);
 }
 
 void	sleep_philo(t_philo *philo)

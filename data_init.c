@@ -6,7 +6,7 @@
 /*   By: akinzeli <akinzeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:05:53 by akinzeli          #+#    #+#             */
-/*   Updated: 2024/05/16 14:41:46 by akinzeli         ###   ########.fr       */
+/*   Updated: 2024/05/18 17:18:33 by akinzeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,21 +71,31 @@ t_philo	*init_philo(t_init_data *data, t_fork *fork)
 	pthread_mutex_init(&(philo)->print, NULL);
 	pthread_mutex_init(&(philo)->dinner, NULL);
 	pthread_mutex_init(&(philo)->dead, NULL);
-	i = -1;
-	while (++i < data->number_philo)
+	i = 0;
+	while (i < data->number_philo)
+	{
 		data_philo(&philo[i], data, fork, i);
+		i++;
+	}
 	return (philo);
 }
 
 void	data_philo(t_philo *philo, t_init_data *data, t_fork *fork, int i)
 {
-	philo->left = (fork + i);
-	philo->right = (fork + ((i + 1) % data->number_philo));
+	t_fork	*left;
+	t_fork	*right;
+
+	left = fork + i;
+	right = fork + ((i + 1) % data->number_philo);
+	philo->left = left;
+	philo->right = right;
 	philo->meal_eaten = 0;
 	philo->dinner_start = time_get();
 	philo->last_eaten_meal = time_get();
 	philo->end_dinner = false;
 	philo->philo_number = i + 1;
+	philo->philo_size = i;
 	philo->philo_dead = 0;
 	philo->data = data;
+	pthread_mutex_init(&(philo)->m_philo, NULL);
 }

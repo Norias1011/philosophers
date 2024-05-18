@@ -6,7 +6,7 @@
 /*   By: akinzeli <akinzeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:17:18 by akinzeli          #+#    #+#             */
-/*   Updated: 2024/05/16 14:37:38 by akinzeli         ###   ########.fr       */
+/*   Updated: 2024/05/18 17:24:50 by akinzeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,22 +51,25 @@ void	*check_death(void *philo)
 		}
 		ft_usleep(5);
 	}
+	return (NULL);
 }
 
 int	death_checker(t_philo *philo, size_t time)
 {
 	int	last_real_meal;
 
+	pthread_mutex_lock(&(philo->m_philo));
 	last_real_meal = time - philo->last_eaten_meal;
+	pthread_mutex_unlock(&(philo->m_philo));
 	if (last_real_meal > philo->data->time_die)
 	{
-		pthread_mutex_lock(&(philo->print));
+		// pthread_mutex_lock(&(philo->print));
 		pthread_mutex_lock(&(philo->dead));
 		philo->philo_dead = 1;
 		philo->end_dinner = true;
 		pthread_mutex_unlock(&(philo->dead));
 		print_situation(philo, philo->philo_number, DIE);
-		pthread_mutex_unlock(&(philo->print));
+		// pthread_mutex_unlock(&(philo->print));
 	}
 	return (philo->philo_dead);
 }
@@ -78,8 +81,8 @@ void	*routine(void *philo)
 	philo_pointer = (t_philo *)philo;
 	if (philo_pointer->philo_number % 2 != 0)
 		ft_usleep(philo_pointer->data->time_eat);
-	while (philo_pointer->data->must_eat > 0 && !philo_pointer->philo_dead
-		&& !philo_pointer->end_dinner)
+	while (philo_pointer->data->must_eat > 0 || !philo_pointer->philo_dead
+		|| !philo_pointer->end_dinner)
 	{
 		think(philo_pointer);
 		eat(philo_pointer);
@@ -103,7 +106,9 @@ int	join_thread(t_philo *philo, t_init_data *data)
 		i++;
 	}
 	if (pthread_join(data->death_checker, NULL) != 0)
+	{
 		return (0);
+	}
 	return (1);
 }
 
