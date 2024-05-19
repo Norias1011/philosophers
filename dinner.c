@@ -6,7 +6,7 @@
 /*   By: akinzeli <akinzeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:17:18 by akinzeli          #+#    #+#             */
-/*   Updated: 2024/05/19 04:41:35 by akinzeli         ###   ########.fr       */
+/*   Updated: 2024/05/19 17:15:02 by akinzeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,8 @@ int	dinner(t_philo *philo, t_init_data *data)
 	i = 0;
 	while (i < data->number_philo)
 	{
-		if (pthread_create(&((philo + i)->id_thread), NULL, routine,
-				&(philo[i])) != 0)
-		{
-			printf("Error with Pthread\n");
+		if (pthread_create(&((philo + i)->id_thread), NULL, routine, philo + i))
 			return (0);
-		}
 		i++;
 	}
 	if (pthread_create(&(data->death_checker), NULL, check_death, philo))
@@ -43,7 +39,7 @@ void	*check_death(void *philo)
 	while (1)
 	{
 		i = 0;
-		time = time_get() - philo_pointer->dinner_start;
+		time = time_get();
 		while (i < philo_pointer->data->number_philo)
 		{
 			if (death_checker(&philo_pointer[i], time))
@@ -66,14 +62,13 @@ int	death_checker(t_philo *philo, size_t time)
 	pthread_mutex_unlock(&(philo->m_philo));
 	if (last_real_meal > philo->data->time_die)
 	{
-		// pthread_mutex_lock(&(philo->print));
+		pthread_mutex_lock(&(philo->print));
 		pthread_mutex_lock(&(philo->dead));
-		print_situation(philo, philo->philo_number, DIE);
-		philo->philo_dead = 1;
-		philo->end_dinner = true;
+		philo->data->philo_dead = 1;
+		philo->data->end_dinner = true;
 		pthread_mutex_unlock(&(philo->dead));
+		print_situation_death(philo, philo->philo_number, DIE);
 		flag = 1;
-		// pthread_mutex_unlock(&(philo->print));
 	}
 	return (flag);
 }
@@ -83,13 +78,14 @@ void	*routine(void *philo)
 	t_philo	*philo_pointer;
 
 	philo_pointer = (t_philo *)philo;
-	if (philo_pointer->philo_number % 2 == 0)
+	if (philo_pointer->philo_number % 2 != 0)
 		ft_usleep(philo_pointer->data->time_eat);
-	while (!philo_dead(philo_pointer))
+	while (philo_dead(philo_pointer) != 1
+		&& philo_pointer->data->end_dinner == false)
 	{
 		think(philo_pointer);
 		eat(philo_pointer);
-		if (must_eat_meal(philo_pointer) == 0)
+		if (must_eat_meal(philo_pointer) == 0 || philo_dead(philo_pointer) == 1)
 			break ;
 		sleep_philo(philo_pointer);
 	}

@@ -6,7 +6,7 @@
 /*   By: akinzeli <akinzeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 13:57:54 by akinzeli          #+#    #+#             */
-/*   Updated: 2024/05/19 04:20:46 by akinzeli         ###   ########.fr       */
+/*   Updated: 2024/05/19 17:17:06 by akinzeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ typedef struct s_data
 	long			time_eat;
 	long			time_sleep;
 	long			must_eat;
+	bool			end_dinner;
+	int				philo_dead;
 	pthread_t		death_checker;
 }					t_init_data;
 
@@ -54,15 +56,14 @@ typedef struct s_philo
 	int				philo_number;
 	int				philo_size;
 	int				meal_eaten;
-	int				philo_dead;
+	int				meal_should_eat;
 	int				last_eaten_meal;
 	int				dinner_start;
-	bool			end_dinner;
 	t_fork			*left;
 	t_fork			*right;
 	pthread_t		id_thread;
 	pthread_mutex_t	print;
-	pthread_mutex_t	dinner;
+	// pthread_mutex_t	dinner;
 	pthread_mutex_t	dead;
 	pthread_mutex_t	m_philo;
 }					t_philo;
@@ -89,6 +90,8 @@ void				print_situation(t_philo *philo, int philo_number,
 int					ft_usleep(size_t micro_sec);
 int					philo_dead(t_philo *philo);
 int					must_eat_meal(t_philo *philo);
+void				print_situation_death(t_philo *philo, int philo_number,
+						char *message);
 
 /* main.c functions */
 

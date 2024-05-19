@@ -6,7 +6,7 @@
 /*   By: akinzeli <akinzeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 13:57:00 by akinzeli          #+#    #+#             */
-/*   Updated: 2024/05/19 02:59:09 by akinzeli         ###   ########.fr       */
+/*   Updated: 2024/05/19 17:03:27 by akinzeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	free_all(t_philo *philo, t_fork *fork, t_init_data *data)
 int	ft_finish(t_philo *philo, t_fork *fork, t_init_data *data, int code)
 {
 	pthread_mutex_destroy(&(philo)->print);
-	pthread_mutex_destroy(&(philo)->dinner);
+	// pthread_mutex_destroy(&(philo)->dinner);
 	pthread_mutex_destroy(&(philo)->dead);
 	free_all(philo, fork, data);
 	return (code);
