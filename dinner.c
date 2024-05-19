@@ -6,7 +6,7 @@
 /*   By: akinzeli <akinzeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:17:18 by akinzeli          #+#    #+#             */
-/*   Updated: 2024/05/19 04:24:46 by akinzeli         ###   ########.fr       */
+/*   Updated: 2024/05/19 04:41:35 by akinzeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,9 @@ int	death_checker(t_philo *philo, size_t time)
 	{
 		// pthread_mutex_lock(&(philo->print));
 		pthread_mutex_lock(&(philo->dead));
+		print_situation(philo, philo->philo_number, DIE);
 		philo->philo_dead = 1;
 		philo->end_dinner = true;
-		print_situation(philo, philo->philo_number, DIE);
 		pthread_mutex_unlock(&(philo->dead));
 		flag = 1;
 		// pthread_mutex_unlock(&(philo->print));
