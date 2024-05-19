@@ -6,7 +6,7 @@
 /*   By: akinzeli <akinzeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 13:57:54 by akinzeli          #+#    #+#             */
-/*   Updated: 2024/05/18 17:18:36 by akinzeli         ###   ########.fr       */
+/*   Updated: 2024/05/19 04:20:46 by akinzeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,14 @@ void				print_situation(t_philo *philo, int philo_number,
 /* utils_second.c functions */
 
 int					ft_usleep(size_t micro_sec);
+int					philo_dead(t_philo *philo);
+int					must_eat_meal(t_philo *philo);
 
 /* main.c functions */
 
-int					free_all(t_philo *philo, t_fork *fork, t_init_data *data);
-void				ft_finish(t_philo *philo, t_fork *fork, t_init_data *data);
+void				free_all(t_philo *philo, t_fork *fork, t_init_data *data);
+int					ft_finish(t_philo *philo, t_fork *fork, t_init_data *data,
+						int code);
 
 /* dinner.c functions */
 
@@ -107,5 +110,7 @@ int					join_thread(t_philo *philo, t_init_data *data);
 void				eat(t_philo *philo);
 void				sleep_philo(t_philo *philo);
 void				think(t_philo *philo);
+void				fork_use(t_philo *philo, t_fork *fork);
+void				remove_fork(t_fork *fork);
 
 #endif

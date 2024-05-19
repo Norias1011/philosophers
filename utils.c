@@ -6,7 +6,7 @@
 /*   By: akinzeli <akinzeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:06:09 by akinzeli          #+#    #+#             */
-/*   Updated: 2024/05/18 17:52:59 by akinzeli         ###   ########.fr       */
+/*   Updated: 2024/05/19 04:36:00 by akinzeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,7 @@ size_t	time_get(void)
 {
 	struct timeval	time;
 
-	if (gettimeofday(&time, NULL) == -1)
-		printf("gettimeofday error\n");
+	gettimeofday(&time, NULL);
 	return ((time.tv_sec * 1000 + time.tv_usec / 1000));
 }
 
@@ -84,9 +83,9 @@ void	print_situation(t_philo *philo, int philo_number, char *message)
 	size_t	time;
 
 	pthread_mutex_lock(&(philo->print));
-	if (!(philo->philo_dead))
+	if (!philo_dead(philo) && must_eat_meal(philo) != 0)
 	{
-		time = time_get() - philo->dinner_start;
+		time = (time_get() - philo->dinner_start);
 		printf("%ld %d %s\n", time, philo_number, message);
 	}
 	pthread_mutex_unlock(&(philo->print));

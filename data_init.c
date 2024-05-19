@@ -6,7 +6,7 @@
 /*   By: akinzeli <akinzeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:05:53 by akinzeli          #+#    #+#             */
-/*   Updated: 2024/05/18 18:16:41 by akinzeli         ###   ########.fr       */
+/*   Updated: 2024/05/19 04:21:43 by akinzeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,13 +85,13 @@ void	data_philo(t_philo *philo, t_init_data *data, t_fork *fork, int i)
 	t_fork	*left;
 	t_fork	*right;
 
-	left = fork + i;
-	right = fork + ((i + 1) % data->number_philo);
+	left = (fork + i);
+	right = (fork + ((i + 1) % data->number_philo));
 	philo->left = left;
 	philo->right = right;
 	philo->meal_eaten = 0;
-	philo->dinner_start = time_get();
-	philo->last_eaten_meal = time_get();
+	// philo->dinner_start = time_get();
+	// philo->last_eaten_meal = time_get();
 	philo->end_dinner = false;
 	philo->philo_number = i + 1;
 	philo->philo_size = i;

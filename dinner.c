@@ -6,7 +6,7 @@
 /*   By: akinzeli <akinzeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:17:18 by akinzeli          #+#    #+#             */
-/*   Updated: 2024/05/18 18:32:53 by akinzeli         ###   ########.fr       */
+/*   Updated: 2024/05/19 04:24:46 by akinzeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	dinner(t_philo *philo, t_init_data *data)
 {
 	int	i;
 
+	philo->dinner_start = time_get();
 	i = 0;
 	while (i < data->number_philo)
 	{
@@ -49,7 +50,7 @@ void	*check_death(void *philo)
 				return (NULL);
 			i++;
 		}
-		ft_usleep(5);
+		ft_usleep(1);
 	}
 	return (NULL);
 }
@@ -57,7 +58,9 @@ void	*check_death(void *philo)
 int	death_checker(t_philo *philo, size_t time)
 {
 	int	last_real_meal;
+	int	flag;
 
+	flag = 0;
 	pthread_mutex_lock(&(philo->m_philo));
 	last_real_meal = time - philo->last_eaten_meal;
 	pthread_mutex_unlock(&(philo->m_philo));
@@ -67,11 +70,12 @@ int	death_checker(t_philo *philo, size_t time)
 		pthread_mutex_lock(&(philo->dead));
 		philo->philo_dead = 1;
 		philo->end_dinner = true;
-		pthread_mutex_unlock(&(philo->dead));
 		print_situation(philo, philo->philo_number, DIE);
+		pthread_mutex_unlock(&(philo->dead));
+		flag = 1;
 		// pthread_mutex_unlock(&(philo->print));
 	}
-	return (philo->philo_dead);
+	return (flag);
 }
 
 void	*routine(void *philo)
@@ -81,14 +85,11 @@ void	*routine(void *philo)
 	philo_pointer = (t_philo *)philo;
 	if (philo_pointer->philo_number % 2 == 0)
 		ft_usleep(philo_pointer->data->time_eat);
-	while ((philo_pointer->data->must_eat > 0
-			&& philo_pointer->meal_eaten <= philo_pointer->data->must_eat)
-		|| philo_pointer->philo_dead == 0 || philo_pointer->end_dinner == false)
+	while (!philo_dead(philo_pointer))
 	{
 		think(philo_pointer);
 		eat(philo_pointer);
-		if (philo_pointer->data->must_eat == 0 || philo_pointer->philo_dead
-			|| philo_pointer->end_dinner)
+		if (must_eat_meal(philo_pointer) == 0)
 			break ;
 		sleep_philo(philo_pointer);
 	}
@@ -98,19 +99,17 @@ void	*routine(void *philo)
 int	join_thread(t_philo *philo, t_init_data *data)
 {
 	int	i;
+	int	flag;
 
 	i = 0;
+	flag = 1;
 	while (i < data->number_philo)
 	{
-		if (pthread_join(philo[i].id_thread, NULL) != 0)
-			return (0);
+		if (pthread_join(philo[i].id_thread, NULL))
+			flag = 0;
 		i++;
 	}
-	if (pthread_join(data->death_checker, NULL) != 0)
-	{
-		return (0);
-	}
-	return (1);
+	return (flag);
 }
 
 /*int	*test_print(void *show_data)
@@ -126,3 +125,8 @@ int	join_thread(t_philo *philo, t_init_data *data)
 	// printf("right fork number : %d\n", (int)new->right);
 	return (0);
 }*/
+
+/* philo_pointer->data->must_eat > 0
+			&& philo_pointer->meal_eaten <= philo_pointer->data->must_eat)
+		|| philo_pointer->philo_dead == 0
+			|| philo_pointer->end_dinner == false*/
