@@ -6,7 +6,7 @@
 /*   By: akinzeli <akinzeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:17:18 by akinzeli          #+#    #+#             */
-/*   Updated: 2024/05/19 17:39:03 by akinzeli         ###   ########.fr       */
+/*   Updated: 2024/05/19 17:43:51 by akinzeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,8 @@ int	join_thread(t_philo *philo, t_init_data *data)
 			flag = 0;
 		i++;
 	}
+	if (pthread_join(data->death_checker, NULL))
+		flag = 0;
 	return (flag);
 }
 
