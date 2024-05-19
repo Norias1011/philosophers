@@ -6,7 +6,7 @@
 /*   By: akinzeli <akinzeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 13:57:00 by akinzeli          #+#    #+#             */
-/*   Updated: 2024/05/19 17:03:27 by akinzeli         ###   ########.fr       */
+/*   Updated: 2024/05/19 17:34:46 by akinzeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,18 @@ void	free_all(t_philo *philo, t_fork *fork, t_init_data *data)
 
 int	ft_finish(t_philo *philo, t_fork *fork, t_init_data *data, int code)
 {
+	int	i;
+
+	i = 0;
 	pthread_mutex_destroy(&(philo)->print);
-	// pthread_mutex_destroy(&(philo)->dinner);
 	pthread_mutex_destroy(&(philo)->dead);
+	while (i < data->number_philo)
+	{
+		pthread_mutex_destroy(&(fork + i)->mutex);
+		pthread_mutex_destroy(&(philo + i)->m_philo);
+		i++;
+	}
+	pthread_mutex_destroy(&(philo)->m_philo);
 	free_all(philo, fork, data);
 	return (code);
 }
@@ -45,7 +54,6 @@ int	main(int ac, char *av[])
 		printf(ERROR_MSG);
 		return (ft_finish(philos, fork, data, code));
 	}
-	printf("all good before dining function\n");
 	if (!(dinner(philos, data)))
 		code = EXIT_FAILURE;
 	if (!(join_thread(philos, data)))

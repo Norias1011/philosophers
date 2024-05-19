@@ -6,7 +6,7 @@
 /*   By: akinzeli <akinzeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 13:57:54 by akinzeli          #+#    #+#             */
-/*   Updated: 2024/05/19 17:17:06 by akinzeli         ###   ########.fr       */
+/*   Updated: 2024/05/19 17:37:32 by akinzeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ typedef struct s_philo
 	t_fork			*right;
 	pthread_t		id_thread;
 	pthread_mutex_t	print;
-	// pthread_mutex_t	dinner;
 	pthread_mutex_t	dead;
 	pthread_mutex_t	m_philo;
 }					t_philo;

@@ -6,7 +6,7 @@
 /*   By: akinzeli <akinzeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:05:53 by akinzeli          #+#    #+#             */
-/*   Updated: 2024/05/19 17:20:16 by akinzeli         ###   ########.fr       */
+/*   Updated: 2024/05/19 17:31:47 by akinzeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ t_philo	*init_philo(t_init_data *data, t_fork *fork)
 	if (philo == NULL)
 		return (NULL);
 	pthread_mutex_init(&(philo)->print, NULL);
-	// pthread_mutex_init(&(philo)->dinner, NULL);
 	pthread_mutex_init(&(philo)->dead, NULL);
 	i = 0;
 	while (i < data->number_philo)
@@ -93,11 +92,8 @@ void	data_philo(t_philo *philo, t_init_data *data, t_fork *fork, int i)
 	philo->right = right;
 	philo->meal_eaten = 0;
 	philo->meal_should_eat = data->must_eat;
-	// philo->dinner_start = time_get();
-	// philo->last_eaten_meal = time_get();
 	philo->philo_number = i + 1;
 	philo->philo_size = i;
 	philo->data = data;
 	pthread_mutex_init(&(philo)->m_philo, NULL);
-	// pthread_mutex_init(&(philo)->dinner, NULL);
 }
