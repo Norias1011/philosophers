@@ -6,7 +6,7 @@
 /*   By: akinzeli <akinzeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:05:53 by akinzeli          #+#    #+#             */
-/*   Updated: 2024/05/19 17:31:47 by akinzeli         ###   ########.fr       */
+/*   Updated: 2024/05/20 19:47:04 by akinzeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ t_init_data	*start_data(int ac, char *av[])
 		return (NULL);
 	new->philo_dead = 0;
 	new->end_dinner = false;
+	new->dinner_start = time_get();
 	return (new);
 }
 
@@ -92,8 +93,10 @@ void	data_philo(t_philo *philo, t_init_data *data, t_fork *fork, int i)
 	philo->right = right;
 	philo->meal_eaten = 0;
 	philo->meal_should_eat = data->must_eat;
+	philo->last_eaten_meal = 0;
 	philo->philo_number = i + 1;
 	philo->philo_size = i;
 	philo->data = data;
+	philo->start_time = data->dinner_start;
 	pthread_mutex_init(&(philo)->m_philo, NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: akinzeli <akinzeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 13:57:54 by akinzeli          #+#    #+#             */
-/*   Updated: 2024/05/19 17:37:32 by akinzeli         ###   ########.fr       */
+/*   Updated: 2024/05/20 19:35:51 by akinzeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,14 @@
 
 typedef struct s_data
 {
-	long			number_philo;
-	long			time_die;
-	long			time_eat;
-	long			time_sleep;
-	long			must_eat;
+	int				number_philo;
+	int				time_die;
+	int				time_eat;
+	int				time_sleep;
+	int				must_eat;
 	bool			end_dinner;
 	int				philo_dead;
+	long			dinner_start;
 	pthread_t		death_checker;
 }					t_init_data;
 
@@ -57,8 +58,8 @@ typedef struct s_philo
 	int				philo_size;
 	int				meal_eaten;
 	int				meal_should_eat;
-	int				last_eaten_meal;
-	int				dinner_start;
+	long			last_eaten_meal;
+	long			start_time;
 	t_fork			*left;
 	t_fork			*right;
 	pthread_t		id_thread;
@@ -80,13 +81,13 @@ void				data_philo(t_philo *philo, t_init_data *data, t_fork *fork,
 int					ft_isdigit(int c);
 int					ft_atoi(const char *str);
 int					check_av(int ac, char *av[]);
-size_t				time_get(void);
+long				time_get(void);
 void				print_situation(t_philo *philo, int philo_number,
 						char *message);
 
 /* utils_second.c functions */
 
-int					ft_usleep(size_t micro_sec);
+void				ft_usleep(long micro_sec);
 int					philo_dead(t_philo *philo);
 int					must_eat_meal(t_philo *philo);
 void				print_situation_death(t_philo *philo, int philo_number,

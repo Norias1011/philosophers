@@ -6,7 +6,7 @@
 /*   By: akinzeli <akinzeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:06:09 by akinzeli          #+#    #+#             */
-/*   Updated: 2024/05/19 04:36:00 by akinzeli         ###   ########.fr       */
+/*   Updated: 2024/05/20 19:19:00 by akinzeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	check_av(int ac, char *av[])
 	}
 	return (1);
 }
-size_t	time_get(void)
+long	time_get(void)
 {
 	struct timeval	time;
 
@@ -80,12 +80,12 @@ size_t	time_get(void)
 
 void	print_situation(t_philo *philo, int philo_number, char *message)
 {
-	size_t	time;
+	long	time;
 
 	pthread_mutex_lock(&(philo->print));
 	if (!philo_dead(philo) && must_eat_meal(philo) != 0)
 	{
-		time = (time_get() - philo->dinner_start);
+		time = (time_get() - philo->data->dinner_start);
 		printf("%ld %d %s\n", time, philo_number, message);
 	}
 	pthread_mutex_unlock(&(philo->print));
