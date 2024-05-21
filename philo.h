@@ -6,7 +6,7 @@
 /*   By: akinzeli <akinzeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 13:57:54 by akinzeli          #+#    #+#             */
-/*   Updated: 2024/05/20 19:35:51 by akinzeli         ###   ########.fr       */
+/*   Updated: 2024/05/21 14:40:36 by akinzeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define SLEEP "is sleeping"
 # define THINK "is thinking"
 # define DIE "died"
-# define ERROR_MSG "Wrong argument : ./philo (number_philo) (time_die) (time_eat) (time_sleep) (number_meal)"
+# define ERROR_MSG "Arguments :./philo(n_philo)(t_die)(t_eat)(t_sleep)(n_meal)"
 
 /*   All the structures  */
 
@@ -42,7 +42,11 @@ typedef struct s_data
 	bool			end_dinner;
 	int				philo_dead;
 	long			dinner_start;
+	int				finish_eating_count;
 	pthread_t		death_checker;
+	pthread_mutex_t	print;
+	pthread_mutex_t	dead;
+	pthread_mutex_t	m_philo;
 }					t_init_data;
 
 typedef struct s_fork
@@ -63,9 +67,9 @@ typedef struct s_philo
 	t_fork			*left;
 	t_fork			*right;
 	pthread_t		id_thread;
-	pthread_mutex_t	print;
-	pthread_mutex_t	dead;
-	pthread_mutex_t	m_philo;
+	pthread_mutex_t	*print;
+	pthread_mutex_t	*dead;
+	pthread_mutex_t	*m_philo;
 }					t_philo;
 
 /* data_init.c functions */
@@ -98,6 +102,7 @@ void				print_situation_death(t_philo *philo, int philo_number,
 void				free_all(t_philo *philo, t_fork *fork, t_init_data *data);
 int					ft_finish(t_philo *philo, t_fork *fork, t_init_data *data,
 						int code);
+int					check_death_full(t_philo *philo);
 
 /* dinner.c functions */
 
@@ -106,7 +111,6 @@ void				*check_death(void *philo);
 int					death_checker(t_philo *philo, size_t time);
 void				*routine(void *philo);
 int					join_thread(t_philo *philo, t_init_data *data);
-// int					*test_print(void *show_data);
 
 /* philo_action.c functions */
 
