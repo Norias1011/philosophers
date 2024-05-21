@@ -6,7 +6,7 @@
 /*   By: akinzeli <akinzeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 13:57:00 by akinzeli          #+#    #+#             */
-/*   Updated: 2024/05/21 15:12:39 by akinzeli         ###   ########.fr       */
+/*   Updated: 2024/05/21 15:19:11 by akinzeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	free_all(t_philo *philo, t_fork *fork, t_init_data *data)
 
 int	ft_finish(t_philo *philo, t_fork *fork, t_init_data *data, int code)
 {
-	ft_usleep(data->time_eat + data->time_sleep + 20000);
+	ft_usleep(data->time_eat + data->time_sleep + 10000);
 	free_all(philo, fork, data);
 	return (code);
 }
