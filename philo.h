@@ -6,7 +6,7 @@
 /*   By: akinzeli <akinzeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 13:57:54 by akinzeli          #+#    #+#             */
-/*   Updated: 2024/05/22 14:29:33 by akinzeli         ###   ########.fr       */
+/*   Updated: 2024/05/22 14:51:35 by akinzeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define SLEEP "is sleeping"
 # define THINK "is thinking"
 # define DIE "died"
-# define ERROR_MSG "Arguments :./philo(n_philo)(t_die)(t_eat)(t_sleep)(n_meal)\n"
+# define ERROR_MSG "Arguments:./philo(n_philo)(t_die)(t_eat)(t_sleep)(n_meal)\n"
 
 /*   All the structures  */
 
