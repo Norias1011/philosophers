@@ -6,7 +6,7 @@
 /*   By: akinzeli <akinzeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 13:57:00 by akinzeli          #+#    #+#             */
-/*   Updated: 2024/05/21 15:19:11 by akinzeli         ###   ########.fr       */
+/*   Updated: 2024/05/22 14:39:07 by akinzeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	free_all(t_philo *philo, t_fork *fork, t_init_data *data)
 
 int	ft_finish(t_philo *philo, t_fork *fork, t_init_data *data, int code)
 {
-	ft_usleep(data->time_eat + data->time_sleep + 10000);
+	ft_usleep((data->time_eat + data->time_sleep) + 3000);
 	free_all(philo, fork, data);
 	return (code);
 }
@@ -33,16 +33,14 @@ int	main(int ac, char *av[])
 	t_philo		*philos;
 	int			code;
 
+	if (ac < 5 || ac > 6)
+		return (printf(ERROR_MSG));
 	code = EXIT_SUCCESS;
 	data = start_data(ac, av);
 	fork = init_fork(data);
 	philos = init_philo(data, fork);
 	if (data == 0 || fork == 0 || philos == 0)
-	{
-		code = EXIT_FAILURE;
-		printf(ERROR_MSG);
-		return (ft_finish(philos, fork, data, code));
-	}
+		return (printf(ERROR_MSG), free_all(philos, fork, data), EXIT_FAILURE);
 	if (!(dinner(philos, data)))
 		code = EXIT_FAILURE;
 	while (check_death_full(philos) != 1 && check_death(philos) == NULL)

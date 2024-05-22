@@ -6,7 +6,7 @@
 /*   By: akinzeli <akinzeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:08:39 by akinzeli          #+#    #+#             */
-/*   Updated: 2024/05/21 14:38:50 by akinzeli         ###   ########.fr       */
+/*   Updated: 2024/05/22 12:17:26 by akinzeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_usleep(long micro_sec)
 	start_time = 0;
 	start_time = time_get();
 	while ((time_get() - start_time) < micro_sec)
-		usleep(100);
+		usleep(50);
 }
 
 int	philo_dead(t_philo *philo)
