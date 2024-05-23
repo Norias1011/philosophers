@@ -6,7 +6,7 @@
 /*   By: akinzeli <akinzeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 13:57:54 by akinzeli          #+#    #+#             */
-/*   Updated: 2024/05/22 14:51:35 by akinzeli         ###   ########.fr       */
+/*   Updated: 2024/05/23 18:03:05 by akinzeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include <time.h>
 # include <unistd.h>
 
-# define FORK "has taken the fork"
+# define FORK "has taken a fork"
 # define EAT "is eating"
 # define SLEEP "is sleeping"
 # define THINK "is thinking"
