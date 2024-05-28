@@ -6,7 +6,7 @@
 /*   By: akinzeli <akinzeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 15:12:27 by akinzeli          #+#    #+#             */
-/*   Updated: 2024/05/23 18:55:13 by akinzeli         ###   ########.fr       */
+/*   Updated: 2024/05/28 15:56:24 by akinzeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 void	eat(t_philo *philo)
 {
 	if (philo->data->number_philo == 1)
-	{
 		return ;
-	}
 	print_situation(philo, philo->philo_number, EAT);
 	pthread_mutex_lock(philo->m_philo);
 	philo->last_eaten_meal = time_get() - philo->data->dinner_start;
@@ -34,9 +32,7 @@ void	eat(t_philo *philo)
 void	sleep_philo(t_philo *philo)
 {
 	if (philo->data->number_philo == 1)
-	{
 		return ;
-	}
 	print_situation(philo, philo->philo_number, SLEEP);
 	ft_usleep(philo->data->time_sleep);
 }
@@ -55,7 +51,7 @@ void	think(t_philo *philo)
 		if (philo->data->number_philo == 1)
 		{
 			print_situation(philo, philo->philo_number, FORK);
-			ft_usleep(philo->data->time_die);
+			ft_usleep(philo->data->time_die + 1);
 			return ;
 		}
 		fork_use(philo, philo->right);
